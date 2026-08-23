@@ -403,7 +403,7 @@ write_soul() {
     00_router 01_transcription_cleanup 02_entity_recognition 03_classification
     04a_extract_decision 04b_risk_factors 04c_precedents 04d_forecast_perspectives 04e_consultant_synthesis 04f_decision_outcome
     05_document_intake 06_photo_people 07_handwriting 08_obsidian_lint 09_feedback_and_model_switch
-    10_history_import
+    10_history_import 11_archive_ingest
   )
 
   {

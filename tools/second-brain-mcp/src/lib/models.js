@@ -7,6 +7,7 @@
 import { fetchCatalog } from "./openrouter.js";
 import { loadFreeModels, filterByModalities, freeTop1 } from "./freeCatalog.js";
 import { resolveLayerPolicy, defaultModelForLayer } from "./layerPolicy.js";
+import { resolveModelForLayer } from "./modelPrefs.js";
 
 const YANDEX_NOTE =
   "Прайс-каталог доступен только для provider=openrouter. Для остальных провайдеров " +
@@ -82,20 +83,35 @@ export async function recommendModelForLayer({ layer, fetchImpl = fetch } = {}) 
   const free = policy.criticality === "non_critical"
     ? await freeTop1({ fetchImpl, modalities: policy.requires })
     : null;
-  const model = defaultModelForLayer(layer, { freeTop1: free });
+  // Выбор владельца сильнее политики: три уровня (ТЗ.md §7.1) резолвятся
+  // первыми, и только если ни один не задан — решает критичность слоя.
+  const chosen = resolveModelForLayer(layer, { freeTop1: free });
+  const policyModel = defaultModelForLayer(layer, { freeTop1: free });
+
+  const reasonByLevel = {
+    layer: "модель выбрана владельцем для этого слоя (уровень 3 — сильнее всех)",
+    modality: `модель выбрана владельцем для всей модальности «${chosen.modality}» (уровень 2)`,
+    global: "общая модель, выбранная владельцем (уровень 1)",
+  };
+  const policyReason =
+    policy.criticality === "critical"
+      ? "критичный слой — качество важнее цены, остаёмся на платной модели"
+      : free
+        ? "некритичный слой — берём топ-1 из бесплатного каталога OpenRouter"
+        : "некритичный слой, но бесплатный каталог недоступен — платный дефолт";
+
   return {
     layer: policy.layer,
     known: policy.known,
     criticality: policy.criticality,
     expectedOutTokens: policy.expectedOutTokens,
     requires: policy.requires,
-    model,
-    tier: free && model === free ? "free" : "paid",
-    reason:
-      policy.criticality === "critical"
-        ? "критичный слой — качество важнее цены, остаёмся на платной модели"
-        : free
-          ? "некритичный слой — берём топ-1 из бесплатного каталога OpenRouter"
-          : "некритичный слой, но бесплатный каталог недоступен — платный дефолт",
+    modality: chosen.modality,
+    model: chosen.model,
+    level: chosen.level,
+    policyModel,
+    tier: free && chosen.model === free ? "free" : "paid",
+    reason: reasonByLevel[chosen.level] ?? policyReason,
+    ...(chosen.note ? { note: chosen.note } : {}),
   };
 }
