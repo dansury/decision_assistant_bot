@@ -1,0 +1,181 @@
+{
+  "_note": "Каталог моделей по модальностям (ТЗ.md §7.1). Цены ПРИМЕРНЫЕ, для сметы и кнопки «сменить нейросеть»; точный счёт — у провайдера. usd_per_unit сопоставлена с unit.",
+  "updated": "2026-08-23",
+  "text": {
+    "default": "anthropic/claude-opus-4.6",
+    "models": [
+      {
+        "id": "deepseek/deepseek-chat",
+        "label": "DeepSeek Chat (free)",
+        "tier": "free",
+        "unit": "1k_tokens",
+        "usd_per_unit": 0.0,
+        "note": "суточная квота OpenRouter"
+      },
+      {
+        "id": "openai/gpt-4o-mini",
+        "label": "GPT-4o mini",
+        "tier": "paid",
+        "unit": "1k_tokens",
+        "usd_per_unit": 0.0006,
+        "note": "дёшево, хорошо на длинных текстах"
+      },
+      {
+        "id": "anthropic/claude-3-5-haiku",
+        "label": "Claude 3.5 Haiku",
+        "tier": "paid",
+        "unit": "1k_tokens",
+        "usd_per_unit": 0.0024,
+        "note": "аккуратнее на русском"
+      },
+      {
+        "id": "google/gemini-2.0-flash-001",
+        "label": "Gemini 2.0 Flash",
+        "tier": "paid",
+        "unit": "1k_tokens",
+        "usd_per_unit": 0.0004,
+        "note": "самый дешёвый платный, длинный контекст"
+      },
+      {
+        "id": "anthropic/claude-opus-4.6",
+        "label": "Claude Opus 4.6",
+        "tier": "paid",
+        "unit": "1k_tokens",
+        "usd_per_unit": 0.018,
+        "note": "платный дефолт критичных слоёв (config/layer_policy.json)"
+      }
+    ]
+  },
+  "ocr": {
+    "default": "yandex/vision-ocr",
+    "models": [
+      {
+        "id": "yandex/vision-ocr",
+        "label": "Yandex Vision OCR",
+        "tier": "paid",
+        "unit": "page",
+        "usd_per_unit": 0.0015,
+        "note": "лучший по русскому, счёт за страницу"
+      },
+      {
+        "id": "openai/gpt-4o-mini",
+        "label": "GPT-4o mini (vision OCR)",
+        "tier": "paid",
+        "unit": "page",
+        "usd_per_unit": 0.004,
+        "note": "понимает вёрстку и таблицы, дороже"
+      },
+      {
+        "id": "google/gemini-2.0-flash-001",
+        "label": "Gemini 2.0 Flash (OCR)",
+        "tier": "paid",
+        "unit": "page",
+        "usd_per_unit": 0.0015,
+        "note": "быстро, слабее на рукописи"
+      },
+      {
+        "id": "qwen/qwen2.5-vl-72b-instruct:free",
+        "label": "Qwen2.5-VL 72B (free)",
+        "tier": "free",
+        "unit": "page",
+        "usd_per_unit": 0.0,
+        "note": "бесплатно, качество плавает"
+      }
+    ]
+  },
+  "vision": {
+    "default": "openai/gpt-4o-mini",
+    "models": [
+      {
+        "id": "qwen/qwen2.5-vl-72b-instruct:free",
+        "label": "Qwen2.5-VL 72B (free)",
+        "tier": "free",
+        "unit": "image",
+        "usd_per_unit": 0.0,
+        "note": "бесплатно, суточная квота"
+      },
+      {
+        "id": "openai/gpt-4o-mini",
+        "label": "GPT-4o mini",
+        "tier": "paid",
+        "unit": "image",
+        "usd_per_unit": 0.0009,
+        "note": "базовый выбор для описания фото"
+      },
+      {
+        "id": "google/gemini-2.0-flash-001",
+        "label": "Gemini 2.0 Flash",
+        "tier": "paid",
+        "unit": "image",
+        "usd_per_unit": 0.0004,
+        "note": "дешевле всех платных"
+      },
+      {
+        "id": "anthropic/claude-3-5-sonnet",
+        "label": "Claude 3.5 Sonnet",
+        "tier": "paid",
+        "unit": "image",
+        "usd_per_unit": 0.0048,
+        "note": "самый точный на схемах и скриншотах"
+      }
+    ]
+  },
+  "voice": {
+    "default": "yandex/speechkit-stt",
+    "models": [
+      {
+        "id": "yandex/speechkit-stt",
+        "label": "Yandex SpeechKit",
+        "tier": "paid",
+        "unit": "minute",
+        "usd_per_unit": 0.09,
+        "note": "русская речь, уже подключён"
+      },
+      {
+        "id": "openai/whisper-1",
+        "label": "Whisper v1",
+        "tier": "paid",
+        "unit": "minute",
+        "usd_per_unit": 0.006,
+        "note": "в 15 раз дешевле, слабее на шуме"
+      },
+      {
+        "id": "google/gemini-2.0-flash-001",
+        "label": "Gemini 2.0 Flash (audio)",
+        "tier": "paid",
+        "unit": "minute",
+        "usd_per_unit": 0.002,
+        "note": "расшифровка + краткое содержание за один вызов"
+      }
+    ]
+  },
+  "video": {
+    "default": "google/gemini-2.0-flash-001",
+    "models": [
+      {
+        "id": "google/gemini-2.0-flash-001",
+        "label": "Gemini 2.0 Flash (video)",
+        "tier": "paid",
+        "unit": "minute",
+        "usd_per_unit": 0.01,
+        "note": "понимает видеоряд целиком"
+      },
+      {
+        "id": "yandex/speechkit-stt",
+        "label": "Только звуковая дорожка (SpeechKit)",
+        "tier": "paid",
+        "unit": "minute",
+        "usd_per_unit": 0.09,
+        "note": "видеоряд игнорируется, дешёвый обходной путь"
+      },
+      {
+        "id": "openai/whisper-1",
+        "label": "Только звуковая дорожка (Whisper)",
+        "tier": "paid",
+        "unit": "minute",
+        "usd_per_unit": 0.006,
+        "note": "самый дешёвый вариант для видео"
+      }
+    ]
+  }
+}
