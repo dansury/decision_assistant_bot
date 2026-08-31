@@ -244,9 +244,8 @@ make hermes-update     # закрепить свежую
 make hermes-rollback   # вернуть предыдущую
 ```
 
-`.github/workflows/hermes-update.yml` раз в сутки проверяет апстрим, собирает
-образ на новой версии, прогоняет смоук-тесты и только тогда открывает PR.
-Обновление доезжает мерджем PR, откат — его revert-ом.
+Проверка и обновление — только вручную (`make hermes-check` / `make hermes-update`),
+авто-PR по расписанию убран.
 
 **Снимки состояния.** В образ зашита версия ядра (`/opt/second_brain/BASE_IMAGE`);
 при смене версии entrypoint снимает состояние тома до того, как новая версия
@@ -275,7 +274,7 @@ make restore ID=<id>      # восстановить (сначала сниме�
 | `config/hermes/base-image.env` | Закреплённая версия ядра + цель отката |
 | `tools/second-brain-mcp/` | MCP-сервер ассистента (см. `ТЗ.md` §10.1) |
 | `scripts/vault.sh` · `memory.sh` · `state-snapshot.sh` · `hermes-update.sh` | Vault · память · снимки тома · версия ядра |
-| `.github/workflows/build.yml` · `hermes-update.yml` | CI-сборка образа · авто-проверка обновлений ядра |
+| `.github/workflows/build.yml` | CI-сборка образа |
 | `scripts/build-graph.sh` · `Makefile` | Утилиты |
 
 ## Документация
